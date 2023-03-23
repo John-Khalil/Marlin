@@ -1135,7 +1135,79 @@ inline void tmc_standby_setup() {
  *  - Open Touch Screen Calibration screen, if not calibrated
  *  - Set Marlin to RUNNING State
  */
+
+
+#include "custom/consoleLogger.h"
+#include <functional>
+#include "custom/async.cpp"
+#include "custom/extendedPort.h"
+#include "custom/esp32basics.h"
+// #include "src/Pins.h"
+
+
 void setup() {
+
+
+
+    Serial2.begin(500000);
+    console.addConsole([&](unsigned char *cosnoleData,unsigned char autoNLCR){
+      if(autoNLCR)
+        Serial2.println((char*)cosnoleData);
+      else
+        Serial2.print((char*)cosnoleData);
+    });
+
+    console.log("code just started");
+
+    #define shiftRegisterClkPin   12
+    #define shiftRegisterDataPin  27
+    #define shiftRegisterLatchPin 14
+
+
+    _PM(shiftRegisterClkPin,OUTPUT);
+    _PM(shiftRegisterDataPin,OUTPUT);
+    _PM(shiftRegisterLatchPin,OUTPUT);
+
+
+    // spiPort.passThrough([&](uint16_t pinNumber,uint8_t pinState){
+    //     uint8_t mainStepper=0;
+    //     uint8_t followerStepper=1;
+    //     spiPort.outputValue&=~(0x3f<<(6*followerStepper));
+    //     // spiPort.outputValue|=(spiPort.outputValue<<((followerStepper-mainStepper)*6))&(0x3f<<(6*followerStepper));
+        
+    //     spiPort.outputValue|=(mainStepper>followerStepper)?(spiPort.outputValue&(0x3f<<(6*mainStepper)))>>((mainStepper-followerStepper)*6):(spiPort.outputValue&(0x3f<<(6*mainStepper)))<<((followerStepper-mainStepper)*6);
+    //     // spiPort.outputValue&=~(1<<24);
+    // });
+
+    spiPort.setup(
+      [&](uint64_t outputValue,uint8_t portSize){
+        uint8_t loopCounter=portSize;
+        while(loopCounter--){
+          // dataPin((outputValue>>loopCounter)&0x01);
+          (((outputValue>>loopCounter)&0x01)?outputRegisterLowSet:outputRegisterLowClear)|=(1<<shiftRegisterDataPin);
+          // if(((outputValue>>loopCounter)&0x01))
+          //   outputRegisterLowSet|=(1<<shiftRegisterDataPin);
+          // else
+          //   outputRegisterLowClear|=(1<<shiftRegisterDataPin);
+
+          outputRegisterLowSet|=(1<<shiftRegisterClkPin);
+          outputRegisterLowClear|=(1<<shiftRegisterClkPin);
+        }
+      },
+      [&](uint8_t latchPin){
+        if(latchPin)
+          outputRegisterLowSet|=(1<<shiftRegisterLatchPin);
+        else
+          outputRegisterLowClear|=(1<<shiftRegisterLatchPin);
+      },
+      [&](float microSec){
+        
+      }
+    );
+    spiPort|=((1<<3)|(1<<9)|(1<<15)|(1<<20)|(1<<26));   // setting the micro stepping to quarter step
+
+
+
   #ifdef FASTIO_INIT
     FASTIO_INIT();
   #endif

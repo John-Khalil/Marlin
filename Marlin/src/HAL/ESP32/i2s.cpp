@@ -334,8 +334,9 @@ int i2s_init() {
   // Start the I2S peripheral
   return i2s_start(I2S_NUM_0);
 }
-
+#include "../../custom/extendedPort.h"
 void i2s_write(uint8_t pin, uint8_t val) {
+  spiPort.write((pin-128),val);
   #if ENABLED(I2S_STEPPER_SPLIT_STREAM)
     if (pin >= 16) {
       SET_BIT_TO(I2S0.conf_single_data, pin, val);
@@ -343,6 +344,7 @@ void i2s_write(uint8_t pin, uint8_t val) {
     }
   #endif
   SET_BIT_TO(i2s_port_data, pin, val);
+  
 }
 
 uint8_t i2s_state(uint8_t pin) {
