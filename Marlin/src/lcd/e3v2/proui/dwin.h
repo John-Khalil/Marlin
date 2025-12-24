@@ -33,6 +33,7 @@
 #include "dwin_defines.h"
 #include "dwinui.h"
 #include "../common/encoder.h"
+#include "../common/limits.h"
 #include "../../../libs/BL24CXX.h"
 
 #if EITHER(BABYSTEPPING, HAS_BED_PROBE)
@@ -229,7 +230,6 @@ void ParkHead();
 #endif
 #if ENABLED(AUTO_BED_LEVELING_UBL)
   void UBLMeshTilt();
-  bool UBLValidMesh();
   void UBLMeshSave();
   void UBLMeshLoad();
 #endif

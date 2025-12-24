@@ -28,57 +28,48 @@
 
 #include "env_validate.h"
 
-#define SHIFT_REG_OUT(SHIFT_REG_OUTPUT_PIN) (SHIFT_REG_OUTPUT_PIN+128)
-
 #ifndef DEFAULT_MACHINE_NAME
   #define DEFAULT_MACHINE_NAME  BOARD_INFO_NAME
-#endif
-
-#define I2S_STEPPER_STREAM
-#if ENABLED(I2S_STEPPER_STREAM)
-  #define I2S_WS                              17
-  #define I2S_BCK                             22
-  #define I2S_DATA                            21
 #endif
 
 //
 // Limit Switches
 //
-#define X_STOP_PIN                            33
-#define Y_STOP_PIN                            32
-#define Z_STOP_PIN                            25
+#define X_STOP_PIN                            34
+#define Y_STOP_PIN                            35
+#define Z_STOP_PIN                            15
 
 //
 // Steppers
 //
-#define X_STEP_PIN                            SHIFT_REG_OUT(1)
-#define X_DIR_PIN                             SHIFT_REG_OUT(0)
-#define X_ENABLE_PIN                          SHIFT_REG_OUT(5)
+#define X_STEP_PIN                            27
+#define X_DIR_PIN                             26
+#define X_ENABLE_PIN                          25
 
-#define Y_STEP_PIN                            SHIFT_REG_OUT(13)
-#define Y_DIR_PIN                             SHIFT_REG_OUT(12)
-#define Y_ENABLE_PIN                          SHIFT_REG_OUT(17)
+#define Y_STEP_PIN                            33
+#define Y_DIR_PIN                             32
+#define Y_ENABLE_PIN                X_ENABLE_PIN
 
-#define Z_STEP_PIN                            SHIFT_REG_OUT(22)
-#define Z_DIR_PIN                             SHIFT_REG_OUT(23)
-#define Z_ENABLE_PIN                          SHIFT_REG_OUT(18)
+#define Z_STEP_PIN                            14
+#define Z_DIR_PIN                             12
+#define Z_ENABLE_PIN                X_ENABLE_PIN
 
-#define E0_STEP_PIN                           SHIFT_REG_OUT(28)//16
-#define E0_DIR_PIN                            SHIFT_REG_OUT(29)//17
-#define E0_ENABLE_PIN                         SHIFT_REG_OUT(24)
+#define E0_STEP_PIN                           16
+#define E0_DIR_PIN                            17
+#define E0_ENABLE_PIN               X_ENABLE_PIN
 
 //
 // Temperature Sensors
 //
 #define TEMP_0_PIN                            36  // Analog Input
-// #define TEMP_BED_PIN                          39  // Analog Input
+#define TEMP_BED_PIN                          39  // Analog Input
 
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN                           26
-#define FAN_PIN                               13
-// #define HEATER_BED_PIN                         4
+#define HEATER_0_PIN                           2
+#define FAN0_PIN                              13
+#define HEATER_BED_PIN                         4
 
 //
 // MicroSD card
