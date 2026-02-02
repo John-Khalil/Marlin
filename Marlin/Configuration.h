@@ -2253,24 +2253,24 @@
  *    +-------------->X     +-------------->X     +-------------->Y
  *     XY_SKEW_FACTOR        XZ_SKEW_FACTOR        YZ_SKEW_FACTOR
  */
-//#define SKEW_CORRECTION
+#define SKEW_CORRECTION
 
 #if ENABLED(SKEW_CORRECTION)
   // Input all length measurements here:
-  #define XY_DIAG_AC 282.8427124746
-  #define XY_DIAG_BD 282.8427124746
-  #define XY_SIDE_AD 200
+  #define XY_DIAG_AC 282.8427124746 //141.3
+  #define XY_DIAG_BD 282.8427124746 //140.9
+  #define XY_SIDE_AD 200             //100.4
 
   // Or, set the XY skew factor directly:
   //#define XY_SKEW_FACTOR 0.0
 
-  //#define SKEW_CORRECTION_FOR_Z
+  #define SKEW_CORRECTION_FOR_Z
   #if ENABLED(SKEW_CORRECTION_FOR_Z)
-    #define XZ_DIAG_AC 282.8427124746
-    #define XZ_DIAG_BD 282.8427124746
-    #define YZ_DIAG_AC 282.8427124746
-    #define YZ_DIAG_BD 282.8427124746
-    #define YZ_SIDE_AD 200
+    #define XZ_DIAG_AC 282.8427124746 //142.0
+    #define XZ_DIAG_BD 282.8427124746 //140.9
+    #define YZ_DIAG_AC 282.8427124746 //140.1
+    #define YZ_DIAG_BD 282.8427124746 //142.9
+    #define YZ_SIDE_AD 200            //99.9
 
     // Or, set the Z skew factors directly:
     //#define XZ_SKEW_FACTOR 0.0
