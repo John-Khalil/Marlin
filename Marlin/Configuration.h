@@ -1148,11 +1148,11 @@
  * Endstop "Hit" State
  * Set to the state (HIGH or LOW) that applies to each endstop.
  */
-#define X_MIN_ENDSTOP_HIT_STATE HIGH
+#define X_MIN_ENDSTOP_HIT_STATE LOW
 #define X_MAX_ENDSTOP_HIT_STATE HIGH
-#define Y_MIN_ENDSTOP_HIT_STATE HIGH
+#define Y_MIN_ENDSTOP_HIT_STATE LOW
 #define Y_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_ENDSTOP_HIT_STATE LOW
 #define Z_MAX_ENDSTOP_HIT_STATE HIGH
 #define I_MIN_ENDSTOP_HIT_STATE HIGH
 #define I_MAX_ENDSTOP_HIT_STATE HIGH
@@ -1737,15 +1737,19 @@
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define X_HOME_DIR 1
-#define Y_HOME_DIR 1
-#define Z_HOME_DIR 1
+#define X_HOME_DIR -1
+#define Y_HOME_DIR -1
+#define Z_HOME_DIR -1
 //#define I_HOME_DIR -1
 //#define J_HOME_DIR -1
 //#define K_HOME_DIR -1
 //#define U_HOME_DIR -1
 //#define V_HOME_DIR -1
 //#define W_HOME_DIR -1
+
+// #define USE_XMIN_PLUG
+// #define USE_YMIN_PLUG
+// #define USE_ZMIN_PLUG
 
 // @section geometry
 
@@ -2257,20 +2261,20 @@
 
 #if ENABLED(SKEW_CORRECTION)
   // Input all length measurements here:
-  #define XY_DIAG_AC 282.8427124746 //141.3
-  #define XY_DIAG_BD 282.8427124746 //140.9
-  #define XY_SIDE_AD 200             //100.4
+  #define XY_DIAG_AC 141.3 // 282.8427124746 //141.3
+  #define XY_DIAG_BD 140.9 // 282.8427124746 //140.9
+  #define XY_SIDE_AD 100.4 // 200             //100.4
 
   // Or, set the XY skew factor directly:
   //#define XY_SKEW_FACTOR 0.0
 
   #define SKEW_CORRECTION_FOR_Z
   #if ENABLED(SKEW_CORRECTION_FOR_Z)
-    #define XZ_DIAG_AC 282.8427124746 //142.0
-    #define XZ_DIAG_BD 282.8427124746 //140.9
-    #define YZ_DIAG_AC 282.8427124746 //140.1
-    #define YZ_DIAG_BD 282.8427124746 //142.9
-    #define YZ_SIDE_AD 200            //99.9
+    #define XZ_DIAG_AC 142.0 // 282.8427124746 //142.0
+    #define XZ_DIAG_BD 140.9 // 282.8427124746 //140.9
+    #define YZ_DIAG_AC 140.1 // 282.8427124746 //140.1
+    #define YZ_DIAG_BD 142.9 // 282.8427124746 //142.9
+    #define YZ_SIDE_AD 99.9 // 200            //99.9
 
     // Or, set the Z skew factors directly:
     //#define XZ_SKEW_FACTOR 0.0
